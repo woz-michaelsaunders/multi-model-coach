@@ -82,3 +82,19 @@ Notes and caveats
 - Model archives are large (hundreds of MB). Use a fast upload method. GitHub release assets are a convenient distribution mechanism.
 - If you want tighter control or programmatic downloads with expiry, hosting the model on S3 and issuing presigned URLs is recommended.
 - If you want me to automate creation of the GitHub Release and upload from this repo (I can add a helper that runs `gh release upload`), say so and I will add it.
+
+Automating release upload and client validation
+
+- This repo includes a helper `scripts/gh_release_upload.py` that calls the GitHub CLI to create a release and upload an asset. Usage:
+
+```powershell
+python scripts/gh_release_upload.py --tag v1.0.0 --title "Model v1.0.0" --notes "BART model" --asset C:\path\to\release-bart.tar.gz
+```
+
+- Clients can validate an extracted model folder using `scripts/validate_model.py`:
+
+```powershell
+python scripts/validate_model.py --model-dir C:\models\bart-large-cnn
+```
+
+If you want, I can also add a CI workflow that will automatically publish a release asset when you push a special tag or run a workflow. Let me know if you'd like that.
